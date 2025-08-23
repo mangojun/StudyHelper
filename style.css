@@ -1,0 +1,130 @@
+:root {
+    --yellow: #eaab00;
+    --blue: #001d36;
+    --green: #12652c;
+    --red: #780308;
+
+  --lg: clamp(1.5rem, 4vw, 2rem);
+  --md: clamp(1rem, 3vw, 1.5rem);
+  --sm: clamp(0.5rem, 2vw, 1rem);
+}
+
+body {
+    margin: 0;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    background-color: var(--blue);
+    padding: 10px;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    gap: 10px;
+}
+
+img {
+    width: 150px;
+}
+
+h1 {
+    margin: 0;
+    color: white;
+    font-size: var(--lg);
+}
+
+nav {
+    flex-grow: 1;
+    display: flex;
+    flex-flow: row;
+    justify-content: end;
+    padding: 20px;
+}
+
+#post {
+    font-size: 16px;
+    border: none;
+    width: 80px;
+    height: 30px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    line-height: 30px;
+    text-decoration: none;
+    background-color: var(--yellow);
+}
+
+main {
+    margin-top: 50px;
+    padding: 10px;
+    display: grid;
+	grid-template-columns: repeat(auto-fill, 250px);
+    gap: 10px;
+}
+
+article {
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+    display: flex;
+    flex-flow: column;
+    gap: 10px;
+}
+
+.performance {
+    background-color: var(--green);
+}
+
+h2 {
+    margin: 0;
+    font-size: var(--md);
+}
+
+h3 {
+    margin: 0;
+    font-size: var(--sm);
+}
+
+.preview {
+    flex-grow: 1;
+    font-size: var(--sm);
+}
+
+#upload {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+section {
+    width: 50%;
+    height: 50%;
+    background-color: var(--blue);
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-flow: column;
+    gap: 10px;
+}
+
+@media (max-width: 500px) {
+    img {
+        display: none;
+    }
+
+    main {
+        grid-template-columns: repeat(auto-fill, 33%);
+	    grid-auto-rows: 100%;
+    }
+}
