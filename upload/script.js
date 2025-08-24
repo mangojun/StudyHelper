@@ -19,15 +19,27 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
-// 익명 로그인
-let uid;
-try {
-    const userCredential = await signInAnonymously(auth);
-    uid = userCredential.user.uid;
-    alert(uid);
-} catch (error) {
-    console.error("익명 로그인 실패:", error);
-}
+// 파이어베이스 익명 로그인
+async function login() {
+    try {
+        await signInAnonymously(auth);
+        console.log("익명 로그인 성공");
+    } catch (error) {
+        alert("로그인 과정에서 오류가 발생하였습니다.");
+        window.location.href = "..";
+    }
+};
+login();
+
+let currentUser = null;
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        currentUser = user;
+        console.log("현재 사용자 UID:", user.uid);
+    } else {
+        currentUser = null;
+    }
+});
 
 // 파이어베이스 쓰기
 async function addPost() {
@@ -36,15 +48,13 @@ async function addPost() {
             title: document.getElementById("title").value,
             type: document.getElementById("type").value,
             content: document.getElementById("content").value,
-            uid: uid;
+            uid: currentUser.uid,
             createdAt: new Date()
         });
         window.location.href = "..";
     } catch (e) {
-        alert("오류가 발생하였습니다.");
+        alert("글 쓰는 과정에서 오류가 발생하였습니다.");
     }
 }
 
-
 document.getElementById("post").addEventListener("click", addPost);
-
