@@ -24,6 +24,7 @@ let uid;
 try {
     const userCredential = await signInAnonymously(auth);
     uid = userCredential.user.uid;
+    alert(uid);
 } catch (error) {
     console.error("익명 로그인 실패:", error);
 }
@@ -46,3 +47,4 @@ async function addPost() {
 
 
 document.getElementById("post").addEventListener("click", addPost);
+
