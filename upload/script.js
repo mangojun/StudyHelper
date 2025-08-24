@@ -3,6 +3,17 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebas
 import { getFirestore, collection, addDoc} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 
+//IP주소 가져오기
+let ipn = ''
+fetch('https://api.ipify.org?format=json')
+    .then(response => response.json())
+    .then(data => {
+        ipn = data.ip;
+    })
+    .catch(error => {
+        console.error("Error fetching IP:", error);
+    });
+
 // 파이어베이스 설정
 const firebaseConfig = {
     apiKey: "AIzaSyDMsu8e9wN2AqcFhmUqTKdQWmURhthVM90",
@@ -49,6 +60,7 @@ async function addPost() {
             type: document.getElementById("type").value,
             content: document.getElementById("content").value,
             uid: currentUser.uid,
+            ip: ipn,
             createdAt: new Date()
         });
         window.location.href = "..";
