@@ -61,16 +61,8 @@ a, button {
     cursor: pointer;
 }
 
-#sign {
-    background-color: var(--green);
-}
-
 #back {
     background-color: var(--yellow);
-}
-
-#post {
-    background-color: var(--green);
 }
 
 main {
@@ -80,23 +72,6 @@ main {
     display: flex;
     flex-flow: column;
 }
-
-#upbar {
-    display: flex;
-    gap: 10px;
-}
-
-#title {
-    height: 30px;
-    padding-left: 10px;
-    flex-grow: 1;
-}
-
-textarea {
-    padding: 10px;
-    height: 300px;
-}
-
 
 @media (max-width: 500px) {
     img {

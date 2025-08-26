@@ -17,22 +17,29 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+const postType = {performance:"수행평가", schedule:"학사일정", tip:"정보/팁", etc:"기타"};
+
 // 파이어베이스 읽기
 async function loadUsers() {
-    const querySnapshot = await getDocs(collection(db, "posts"));
+    const posts = await getDocs(collection(db, "posts"));
+    console.log(posts);
 
-    querySnapshot.forEach((doc) => {
+    posts.forEach((doc) => {
         const data = doc.data();
 
-        const article = document.createElement("article");
-        article.className = "performance";
-        article.innerHTML = `
-            <h2>${data.title}</h2>
-            <h3>${data.type}</h3>
-            <div>${data.content}</div>
-        `;
+        const post = document.createElement("a");
 
-        document.querySelector("main").appendChild(article);
+        if(data.type in postType) {
+            post.className = `post ${data.type}`;
+            post.href = `post/index.html?id=${doc.id}`;
+            post.innerHTML = `
+                <h2>${data.title}</h2>
+                <h3>${postType[data.type]} - ${data.name}</h3>
+                <div class="preview">${data.content}</div>
+            `;
+        
+            document.querySelector("main").appendChild(post);
+        }
     });
 }
 

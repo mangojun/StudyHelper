@@ -1,14 +1,14 @@
 // 파이어베이스 SDK 불러오기
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import { getFirestore, collection, addDoc} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
-import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+import { GoogleAuthProvider, getAuth, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 
 //IP주소 가져오기
-let ipn = ''
+let ip = ''
 fetch('https://api.ipify.org?format=json')
     .then(response => response.json())
     .then(data => {
-        ipn = data.ip;
+        ip = data.ip;
     })
     .catch(error => {
         console.error("Error fetching IP:", error);
@@ -28,45 +28,63 @@ const firebaseConfig = {
 // 파이어베이스 초기화
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+const auth = getAuth();
 
-// 파이어베이스 익명 로그인
+// 파이어베이스 구글 로그인
+
 async function login() {
     try {
-        await signInAnonymously(auth);
-        console.log("익명 로그인 성공");
-    } catch (error) {
-        alert("로그인 과정에서 오류가 발생하였습니다.");
-        window.location.href = "..";
+        signInWithPopup(auth, provider);
+    } catch(e) {
+        alert("로그인 과정에서 오류가 발생하였습니다.", e);
     }
-};
-login();
+}
 
-let currentUser = null;
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        currentUser = user;
-        console.log("현재 사용자 UID:", user.uid);
+async function logout() {
+    try {
+        signOut(auth);
+    } catch(e) {
+        alert("로그아웃 과정에서 오류가 발생하였습니다.", e);
+    }
+}
+
+let user;
+onAuthStateChanged(auth, (result) => {
+    if(result) {
+        user = result;
+        document.getElementById("sign").addEventListener("click", logout);
+        document.getElementById("sign").removeEventListener("click", login);
+        document.getElementById("sign").textContent = "로그아웃";
+        document.querySelector("h1").textContent = `${user.displayName}`;
     } else {
-        currentUser = null;
+        user = null;
+        document.getElementById("sign").addEventListener("click", login);
+        document.getElementById("sign").removeEventListener("click", logout);
+        document.getElementById("sign").textContent = "로그인";
+        document.querySelector("h1").textContent = "로그아웃됨";
     }
 });
 
 // 파이어베이스 쓰기
 async function addPost() {
-    try {
-        await addDoc(collection(db, "posts"), {
-            title: document.getElementById("title").value,
-            type: document.getElementById("type").value,
-            content: document.getElementById("content").value,
-            uid: currentUser.uid,
-            ip: ipn,
-            createdAt: new Date()
-        });
-        window.location.href = "..";
-    } catch (e) {
-        alert("글 쓰는 과정에서 오류가 발생하였습니다.");
+    if(user) {
+        try {
+            await addDoc(collection(db, "posts"), {
+                title: document.getElementById("title").value,
+                type: document.getElementById("type").value,
+                content: document.getElementById("content").value,
+                uid: user.uid,
+                name: user.displayName,
+                ip: ip,
+                createdAt: new Date()
+            });
+            window.location.href = "..";
+        } catch(e) {
+            alert(`포스트 과정에서 오류가 발생하였습니다. ${e}`);
+        }
+    } else {
+        alert("로그인이 필요한 동작입니다.")
     }
 }
-
 document.getElementById("post").addEventListener("click", addPost);

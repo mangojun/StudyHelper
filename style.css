@@ -45,7 +45,7 @@ nav {
     padding: 20px;
 }
 
-#post {
+#post-btn {
     font-size: 16px;
     border: none;
     width: 80px;
@@ -62,22 +62,38 @@ nav {
 main {
     margin-top: 50px;
     padding: 10px;
-    display: grid;
-	grid-template-columns: repeat(auto-fill, 250px);
+    display: flex;
+    flex-wrap: wrap;
     gap: 10px;
 }
 
-article {
+.post {
     padding: 10px;
     border-radius: 10px;
     color: white;
     display: flex;
     flex-flow: column;
     gap: 10px;
+    width: calc(20% - 28px);
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    text-decoration: none;
 }
 
 .performance {
+    background-color: var(--red);
+}
+
+.schedule {
     background-color: var(--green);
+}
+
+.tip {
+    background-color: var(--blue);
+}
+
+.etc {
+    background-color: var(--yellow);
 }
 
 h2 {
@@ -126,5 +142,9 @@ section {
     main {
         grid-template-columns: repeat(auto-fill, 33%);
 	    grid-auto-rows: 100%;
+    }
+
+    .post {
+        width: calc(50% - 30px);
     }
 }

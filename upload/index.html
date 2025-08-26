@@ -9,14 +9,22 @@
 <body>
     <header>
         <img src="https://daeseong.hs.kr/hosts/daeseong.hs.kr/commons/images/global/logo.png" alt="">
-        <h1>5반 학습 도우미</h1>
+        <h1>업로드</h1>
         <nav>
+            <button id="sign">로그인</button>
             <a id="back" href="..">돌아가기</a>
         </nav>
     </header>
     <main>
-        <input type="text" id="title" placeholder="제목">
-        <input type="text" id="type" placeholder="유형">
+        <div id="upbar">
+            <input type="text" id="title" placeholder="제목">
+            <select id="type">
+                <option value="performance">수행평가</option>
+                <option value="schedule">학사일정</option>
+                <option value="tip">정보/팁</option>
+                <option value="etc">기타</option>
+            </select>
+        </div>
         <textarea id="content" placeholder="내용"></textarea>
         <footer>
             <button id="post">포스트</button>
