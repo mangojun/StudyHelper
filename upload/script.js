@@ -3,7 +3,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebas
 import { getFirestore, collection, addDoc} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 import { GoogleAuthProvider, getAuth, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 
-//IP주소 가져오기
+// IP주소 가져오기
 let ip = ''
 fetch('https://api.ipify.org?format=json')
     .then(response => response.json())
@@ -13,6 +13,21 @@ fetch('https://api.ipify.org?format=json')
     .catch(error => {
         console.error("Error fetching IP:", error);
     });
+
+// quill 설정
+const quill = new Quill("#content", {
+    theme: "snow",
+    placeholder: "내용을 입력하세요...",
+    modules: {
+        toolbar: [
+            ["bold", "italic", "underline"],
+            [{"header": [1, 2, 3, false]}],
+            [{"list": "ordered"}, {"list": "bullet"}],
+            ["link"],
+            ["clean"]
+        ]
+    }
+});
 
 // 파이어베이스 설정
 const firebaseConfig = {
@@ -32,7 +47,6 @@ const provider = new GoogleAuthProvider();
 const auth = getAuth();
 
 // 파이어베이스 구글 로그인
-
 async function login() {
     try {
         signInWithPopup(auth, provider);
@@ -73,7 +87,7 @@ async function addPost() {
             await addDoc(collection(db, "posts"), {
                 title: document.getElementById("title").value,
                 type: document.getElementById("type").value,
-                content: document.getElementById("content").value,
+                content: quill.getContents(),
                 uid: user.uid,
                 name: user.displayName,
                 ip: ip,
@@ -87,4 +101,5 @@ async function addPost() {
         alert("로그인이 필요한 동작입니다.")
     }
 }
+
 document.getElementById("post").addEventListener("click", addPost);
