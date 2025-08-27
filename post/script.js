@@ -25,9 +25,9 @@ async function load() {
     const data = _doc.data();
 
     document.querySelector("h1").textContent = `${data.title} - ${data.name}`;
-    const viewer = new Quill("main", {readOnly: true, theme: "snow"});
-    viewer.setContents(data.content);
+    document.querySelector("main").innerHTML = data.content;
 }
 
 load();
+
 
