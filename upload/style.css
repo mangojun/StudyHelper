@@ -47,7 +47,7 @@ nav {
     align-items: center;
 }
 
-a, button {
+nav>a, button {
     font-size: 16px;
     border: none;
     width: 80px;
@@ -104,3 +104,4 @@ textarea {
     }
 
 }
+
