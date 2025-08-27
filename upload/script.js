@@ -23,8 +23,7 @@ const quill = new Quill("#content", {
             ["bold", "italic", "underline"],
             [{"header": [1, 2, 3, false]}],
             [{"list": "ordered"}, {"list": "bullet"}],
-            ["link"],
-            ["clean"]
+            ["link", "formula", "clean"]
         ]
     }
 });
@@ -103,4 +102,5 @@ async function addPost() {
 }
 
 document.getElementById("post").addEventListener("click", addPost);
+
 
