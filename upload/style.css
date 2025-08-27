@@ -31,7 +31,7 @@ img {
     width: 150px;
 }
 
-h1 {
+header>h1 {
     margin: 0;
     color: white;
     font-size: var(--lg);
@@ -102,4 +102,5 @@ textarea {
     img {
         display: none;
     }
+
 }
