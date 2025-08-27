@@ -24,9 +24,8 @@ async function load() {
     const _doc = await getDoc(post);
     const data = _doc.data();
 
-    document.querySelector("h2").textContent = data.title;
-    document.querySelector("h3").textContent = data.name;
-    document.getElementById("content").textContent = data.content;
+    document.querySelector("h1").textContent = `${data.title} - ${data.name}`;
+    document.querySelector("main").innerHTML = data.content;
 }
 
 load();
