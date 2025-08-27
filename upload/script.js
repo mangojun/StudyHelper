@@ -86,7 +86,7 @@ async function addPost() {
             await addDoc(collection(db, "posts"), {
                 title: document.getElementById("title").value,
                 type: document.getElementById("type").value,
-                content: quill.root.innerHTML,
+                content: quill.getContents(),
                 uid: user.uid,
                 name: user.displayName,
                 ip: ip,
@@ -102,5 +102,6 @@ async function addPost() {
 }
 
 document.getElementById("post").addEventListener("click", addPost);
+
 
 
