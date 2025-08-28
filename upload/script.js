@@ -20,10 +20,10 @@ const quill = new Quill("#content", {
     placeholder: "내용을 입력하세요...",
     modules: {
         toolbar: [
-            ["bold", "italic", "underline"],
-            [{"header": [1, 2, 3, false]}],
-            [{"list": "ordered"}, {"list": "bullet"}],
-            ["link", "formula", "clean"]
+            ["bold", "italic", "underline", "strike", {"color": []}, {"background": []}, {"align": []}],
+            [{"header": [1, 2, 3, 4, 5, 6, false]}],
+            [{"list": "ordered"}, {"list": "bullet"}, {"indent": "-1"}, {"indent": "+1"}],
+            ["link", "formula", "code-block", "clean"]
         ]
     }
 });
@@ -102,6 +102,7 @@ async function addPost() {
 }
 
 document.getElementById("post").addEventListener("click", addPost);
+
 
 
 
