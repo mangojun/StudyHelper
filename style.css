@@ -96,19 +96,35 @@ main {
     background-color: var(--yellow);
 }
 
+.performance.admin {
+    background-image: linear-gradient(45deg, #f80794, var(--red));
+}
+
+.schedule.admin {
+    background-image: linear-gradient(45deg, #16d189, var(--green));
+}
+
+.tip.admin {
+    background-image: linear-gradient(45deg, #0080ff, var(--blue));
+}
+
+.etc.admin {
+    background-image: linear-gradient(45deg, #ffd900, var(--yellow));
+}
+
 h2 {
     margin: 0;
-    font-size: var(--md);
+    font-size: var(--lg);
 }
 
 h3 {
     margin: 0;
-    font-size: var(--sm);
+    font-size: var(--md);
 }
 
 .preview {
     flex-grow: 1;
-    font-size: var(--sm);
+    font-size: var(--md);
 }
 
 #upload {
@@ -132,6 +148,18 @@ section {
     display: flex;
     flex-flow: column;
     gap: 10px;
+}
+
+@keyframes admin {
+	0% {
+		background-position: left;
+	}
+	50% {
+		background-position: right;
+	}
+	100% {
+		background-position: left;
+	}
 }
 
 @media (max-width: 500px) {

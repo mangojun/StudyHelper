@@ -30,12 +30,16 @@ async function loadUsers() {
         const post = document.createElement("a");
 
         if(data.type in postType) {
-            post.className = `post ${data.type}`;
-            post.href = `post/index.html?id=${doc.id}`;
+            if(data.uid == "e46hd5AkaOeAiMkYvUrQpRLWDzr2") {
+                post.className = `post admin ${data.type}`;
+            } else {
+                post.className = `post ${data.type}`;
+            }
+            post.href = `post/?id=${doc.id}`;
             post.innerHTML = `
                 <h2>${data.title}</h2>
-                <h3>${postType[data.type]} - ${data.name}</h3>
-                <div class="preview">${data.content}</div>
+                <h3>${postType[data.type]} ${data.name}</h3>
+                <div class="preview">${data.preview}</div>
             `;
         
             document.querySelector("main").appendChild(post);

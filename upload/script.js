@@ -20,10 +20,12 @@ const quill = new Quill("#content", {
     placeholder: "내용을 입력하세요...",
     modules: {
         toolbar: [
-            ["bold", "italic", "underline", "strike", {"color": []}, {"background": []}, {"align": []}],
-            [{"header": [1, 2, 3, 4, 5, 6, false]}],
-            [{"list": "ordered"}, {"list": "bullet"}, {"indent": "-1"}, {"indent": "+1"}],
-            ["link", "formula", "code-block", "clean"]
+            [{"header": []}],
+            ["bold", "italic", "underline", "strike"],
+            [{"color": []}, {"background": []}, {"align": []}, "link"],
+            [{"list": "bullet"}, {"list": "ordered"}, {"indent": "-1"}, {"indent": "+1"}],
+            ["formula", "video"],
+            ["blockquote", "code-block"]
         ]
     }
 });
@@ -86,7 +88,8 @@ async function addPost() {
             await addDoc(collection(db, "posts"), {
                 title: document.getElementById("title").value,
                 type: document.getElementById("type").value,
-                content: quill.root.innerHTML,
+                content: JSON.stringify(quill.getContents()),
+                preview: quill.getText(0, 100),
                 uid: user.uid,
                 name: user.displayName,
                 ip: ip,
@@ -102,8 +105,3 @@ async function addPost() {
 }
 
 document.getElementById("post").addEventListener("click", addPost);
-
-
-
-
-

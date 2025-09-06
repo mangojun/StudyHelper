@@ -2,6 +2,10 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
+// quill 설정
+const quill = new Quill("#content");
+quill.enable(false);
+
 // 파이어베이스 설정
 const firebaseConfig = {
     apiKey: "AIzaSyDMsu8e9wN2AqcFhmUqTKdQWmURhthVM90",
@@ -17,17 +21,19 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+const postType = {performance:"수행평가", schedule:"학사일정", tip:"정보/팁", etc:"기타"};
+
 async function load() {
     const params = new URLSearchParams(window.location.search);
     const id = params.get("id");
-    const post = doc(db, "posts", id);
-    const _doc = await getDoc(post);
-    const data = _doc.data();
+    const post = await getDoc(doc(db, "posts", id));
+    const data = post.data();
 
-    document.querySelector("h1").textContent = `${data.title} - ${data.name}`;
-    document.querySelector("main").innerHTML = data.content;
+    console.log(data);
+    quill.setContents(JSON.parse(data.content));
+    document.querySelector("h1").innerText = data.title;
+    document.getElementById("name").innerText = data.name;
+    document.getElementById("type").innerText = postType[data.type];
 }
 
 load();
-
-

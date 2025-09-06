@@ -73,10 +73,25 @@ main {
     flex-flow: column;
 }
 
+#upbar {
+    display: flex;
+    gap: 10px;
+    height: 30px;
+    border-bottom: 1px solid #ccc;
+}
+
+#name, #type {
+    font-size: var(--md);
+    font-weight: bold;
+}
+
+#name {
+    flex-grow: 1;
+}
+
 @media (max-width: 500px) {
     img {
         display: none;
     }
 
 }
-

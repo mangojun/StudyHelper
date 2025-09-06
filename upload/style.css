@@ -92,6 +92,10 @@ main {
     flex-grow: 1;
 }
 
+#title, select {
+    border: 1px solid #ccc;
+}
+
 textarea {
     padding: 10px;
     height: 300px;
@@ -104,4 +108,3 @@ textarea {
     }
 
 }
-
